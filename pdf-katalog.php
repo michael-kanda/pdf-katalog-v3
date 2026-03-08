@@ -3,7 +3,7 @@
  * Plugin Name: PDF Blätterkatalog
  * Description: Interaktiver PDF-Katalog mit Echtzeit-Suche, Akkordion-Inhaltsverzeichnis, Doppelseiten-Ansicht und Blättereffekt. Mehrere Kataloge via Custom Post Type.
  * Version: 3.0.0
- * Author: Custom Development
+ * Author: Michael Kanda
  * Text Domain: pdf-katalog
  */
 
