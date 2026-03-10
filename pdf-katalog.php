@@ -119,7 +119,7 @@ function pdk_meta_box_render( $post ) {
             <td>
                 <input type="color" id="pdk_bg_color" name="pdk_bg_color"
                        value="<?php echo esc_attr( $bg_color ); ?>" />
-                <p class="description">Haupthintergrund des Katalog-Viewers.</p>
+                <p class="description">Haupthintergrund des Katalog-Viewers (Standard: #0f1114).</p>
             </td>
         </tr>
         <tr>
@@ -127,7 +127,7 @@ function pdk_meta_box_render( $post ) {
             <td>
                 <input type="color" id="pdk_text_color" name="pdk_text_color"
                        value="<?php echo esc_attr( $text_color ); ?>" />
-                <p class="description">Textfarbe im Katalog-Viewer.</p>
+                <p class="description">Textfarbe im Katalog-Viewer (Standard: #e4e4e7).</p>
             </td>
         </tr>
         <tr>
