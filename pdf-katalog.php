@@ -72,6 +72,8 @@ function pdk_meta_box_render( $post ) {
     $pdf_url = get_post_meta( $post->ID, '_pdk_pdf_url', true );
     $toc     = get_post_meta( $post->ID, '_pdk_toc_json', true );
     $accent  = get_post_meta( $post->ID, '_pdk_accent_color', true ) ?: '#e63946';
+    $bg_color = get_post_meta( $post->ID, '_pdk_bg_color', true ) ?: '#0f1114';
+    $text_color = get_post_meta( $post->ID, '_pdk_text_color', true ) ?: '#e4e4e7';
     $logo    = get_post_meta( $post->ID, '_pdk_logo_text', true ) ?: '';
     $subtitle = get_post_meta( $post->ID, '_pdk_subtitle', true ) ?: '';
     ?>
@@ -110,6 +112,22 @@ function pdk_meta_box_render( $post ) {
             <td>
                 <input type="color" id="pdk_accent_color" name="pdk_accent_color"
                        value="<?php echo esc_attr( $accent ); ?>" />
+            </td>
+        </tr>
+        <tr>
+            <th><label for="pdk_bg_color">Hintergrundfarbe</label></th>
+            <td>
+                <input type="color" id="pdk_bg_color" name="pdk_bg_color"
+                       value="<?php echo esc_attr( $bg_color ); ?>" />
+                <p class="description">Haupthintergrund des Katalog-Viewers.</p>
+            </td>
+        </tr>
+        <tr>
+            <th><label for="pdk_text_color">Schriftfarbe</label></th>
+            <td>
+                <input type="color" id="pdk_text_color" name="pdk_text_color"
+                       value="<?php echo esc_attr( $text_color ); ?>" />
+                <p class="description">Textfarbe im Katalog-Viewer.</p>
             </td>
         </tr>
         <tr>
@@ -154,6 +172,8 @@ add_action( 'save_post_pdk_catalog', function ( $post_id ) {
         'pdk_pdf_url'      => '_pdk_pdf_url',
         'pdk_toc_json'     => '_pdk_toc_json',
         'pdk_accent_color' => '_pdk_accent_color',
+        'pdk_bg_color'     => '_pdk_bg_color',
+        'pdk_text_color'   => '_pdk_text_color',
         'pdk_logo_text'    => '_pdk_logo_text',
         'pdk_subtitle'     => '_pdk_subtitle',
     );
@@ -278,6 +298,8 @@ add_shortcode( 'pdf_katalog', function ( $atts ) {
     $pdf_url  = get_post_meta( $post_id, '_pdk_pdf_url', true );
     $toc_raw  = get_post_meta( $post_id, '_pdk_toc_json', true );
     $accent   = get_post_meta( $post_id, '_pdk_accent_color', true ) ?: '#e63946';
+    $bg_color = get_post_meta( $post_id, '_pdk_bg_color', true ) ?: '#0f1114';
+    $text_color = get_post_meta( $post_id, '_pdk_text_color', true ) ?: '#e4e4e7';
     $logo     = get_post_meta( $post_id, '_pdk_logo_text', true ) ?: $catalog_post->post_title;
     $subtitle = get_post_meta( $post_id, '_pdk_subtitle', true ) ?: '';
 
@@ -287,14 +309,14 @@ add_shortcode( 'pdf_katalog', function ( $atts ) {
 
     $toc = ! empty( $toc_raw ) ? ( json_decode( $toc_raw, true ) ?: array() ) : array();
 
-    return pdk_render_viewer( $pdf_url, $toc, $accent, $logo, $subtitle, $post_id );
+    return pdk_render_viewer( $pdf_url, $toc, $accent, $logo, $subtitle, $post_id, $bg_color, $text_color );
 });
 
 /* ══════════════════════════════════════════════════
    6. Render Viewer (shared between CPT & legacy)
    ══════════════════════════════════════════════════ */
 
-function pdk_render_viewer( $pdf_url, $toc, $accent, $logo, $subtitle, $instance_id ) {
+function pdk_render_viewer( $pdf_url, $toc, $accent, $logo, $subtitle, $instance_id, $bg_color = '#0f1114', $text_color = '#e4e4e7' ) {
     // Unique instance ID for multiple catalogs on one page
     $uid = 'pdk-' . sanitize_html_class( $instance_id );
 
@@ -318,7 +340,7 @@ function pdk_render_viewer( $pdf_url, $toc, $accent, $logo, $subtitle, $instance
 
     ob_start();
     ?>
-    <div id="<?php echo esc_attr( $uid ); ?>" class="pdk-katalog" style="--pdk-accent:<?php echo esc_attr( $accent ); ?>;">
+    <div id="<?php echo esc_attr( $uid ); ?>" class="pdk-katalog" style="--pdk-accent:<?php echo esc_attr( $accent ); ?>;--pdk-bg:<?php echo esc_attr( $bg_color ); ?>;--pdk-text:<?php echo esc_attr( $text_color ); ?>;">
 
         <!-- Sidebar -->
         <aside class="pdk-sidebar">
