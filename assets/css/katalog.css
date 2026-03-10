@@ -13,15 +13,21 @@
     padding: 0;
 }
 
+.pdk-katalog canvas {
+    max-width: none !important;
+    max-height: none !important;
+    object-fit: none !important;
+}
+
 .pdk-katalog {
     --pdk-accent: #e63946;
-    --pdk-accent-soft: color-mix(in srgb, var(--pdk-accent) 12%, transparent);
+    --pdk-accent-soft: color-mix(in srgb, var(--pdk-accent) 12%, var(--pdk-bg));
     --pdk-bg: #0f1114;
-    --pdk-sidebar-bg: color-mix(in srgb, var(--pdk-bg) 85%, #fff);
-    --pdk-sidebar-w: 360px;
-    --pdk-border: color-mix(in srgb, var(--pdk-text) 10%, transparent);
     --pdk-text: #e4e4e7;
-    --pdk-text-dim: color-mix(in srgb, var(--pdk-text) 50%, transparent);
+    --pdk-sidebar-bg: color-mix(in srgb, var(--pdk-bg), var(--pdk-text) 5%);
+    --pdk-sidebar-w: 360px;
+    --pdk-border: color-mix(in srgb, var(--pdk-bg), var(--pdk-text) 12%);
+    --pdk-text-dim: color-mix(in srgb, var(--pdk-bg), var(--pdk-text) 50%);
     --pdk-radius: 8px;
     --pdk-font: 'DM Sans', -apple-system, sans-serif;
     --pdk-mono: 'JetBrains Mono', monospace;
@@ -80,11 +86,19 @@
 }
 
 /* Search */
-.pdk-search-wrap { position: relative; display: flex; align-items: center; }
-.pdk-search-icon { position: absolute; right: 12px; width: 16px; height: 16px; color: var(--pdk-text-dim); pointer-events: none; }
-.pdk-search {
+.pdk-katalog .pdk-search-wrap { position: relative; display: flex; align-items: center; }
+.pdk-katalog .pdk-search-wrap .pdk-search-icon {
+    position: absolute;
+    right: 12px;
+    left: auto !important;
+    width: 16px;
+    height: 16px;
+    color: var(--pdk-text-dim);
+    pointer-events: none;
+}
+.pdk-katalog .pdk-search {
     width: 100%;
-    padding: 10px 38px 10px 14px;
+    padding: 10px 40px 10px 14px;
     border: 1px solid var(--pdk-border);
     border-radius: var(--pdk-radius);
     background: rgba(255,255,255,.04);
@@ -96,8 +110,8 @@
 }
 .pdk-search::placeholder { color: var(--pdk-text-dim); }
 .pdk-search:focus { border-color: var(--pdk-accent); box-shadow: 0 0 0 3px var(--pdk-accent-soft); }
-.pdk-search-clear {
-    position: absolute; right: 32px; background: none; border: none;
+.pdk-katalog .pdk-search-clear {
+    position: absolute; right: 34px; background: none; border: none;
     color: var(--pdk-text-dim); font-size: 18px; cursor: pointer; display: none; padding: 4px;
 }
 .pdk-search-clear:hover { color: var(--pdk-text); }
@@ -206,6 +220,9 @@ mark.pdk-highlight { background: var(--pdk-accent); color: #fff; border-radius: 
 .pdk-page-left canvas, .pdk-page-right canvas {
     box-shadow: 0 8px 40px rgba(0,0,0,.5), 0 0 0 1px rgba(255,255,255,.04);
     display: block;
+    max-width: none !important;
+    max-height: none !important;
+    object-fit: none !important;
 }
 
 /* Book spine */
